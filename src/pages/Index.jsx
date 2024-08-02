@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Newspaper } from 'lucide-react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 const newsCategories = [
   { value: 'all', label: '全部' },
@@ -50,23 +50,25 @@ const Index = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold flex items-center">
-          <Newspaper className="mr-2" />
-          今日头条
-        </h1>
-        <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="选择新闻类别" />
-          </SelectTrigger>
-          <SelectContent>
-            {newsCategories.map((category) => (
-              <SelectItem key={category.value} value={category.value}>
-                {category.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <header className="mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-3xl font-bold flex items-center">
+            <Newspaper className="mr-2" />
+            今日头条
+          </h1>
+        </div>
+        <div className="flex space-x-2 overflow-x-auto pb-2">
+          {newsCategories.map((category) => (
+            <Button
+              key={category.value}
+              variant={selectedCategory === category.value ? "default" : "outline"}
+              onClick={() => setSelectedCategory(category.value)}
+              className="whitespace-nowrap"
+            >
+              {category.label}
+            </Button>
+          ))}
+        </div>
       </header>
       <main>
         {filteredNews.map((news) => (
